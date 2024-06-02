@@ -71,7 +71,7 @@ var timeout chan bool
 var ch chan []byte
 var message string
 var retries = 5
-var dbURL = "dburl/opensips"
+var dbURL = ""//"dburl/opensips"
 
 func main() {
 
@@ -90,6 +90,7 @@ func Handler() {
 		}
 	}
 
+	
 	rip = strings.Split(ips, ",")
 	rhost = strings.Split(ips, ",")
 
@@ -281,7 +282,7 @@ func Option() string {
 func resolveHost(host string) string {
 	ips, err := net.LookupIP(host)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s : Could not get IPs: %v\n", env, err)
+		fmt.Fprintf(os.Stderr, "%s : For %s Could not get IPs: %v\n", env, host, err)
 		os.Exit(1)
 	}
 	return fmt.Sprint(ips[0])
@@ -320,13 +321,14 @@ func getMediaServers(rip, rhost []string) ([]string, []string) {
 		fmt.Println(ts() + fmt.Sprint(err))
 		return rip, rhost
 	}
-	defer db.Close()
 
 	results, err := db.Query("select dst_uri from load_balancer")
 	if err != nil {
 		fmt.Println(ts() + fmt.Sprint(err))
 		return rip, rhost
 	}
+
+	defer db.Close()
 
 	for results.Next() {
 		var dstURI string

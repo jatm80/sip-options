@@ -1,5 +1,5 @@
 # Define the environment variables
-export SIP_DEST_IP = sip.server.com
+export SIP_DEST_HOST = sip2.australianphone.com.au
 export SLACK_CHANNEL = #test_alerts
 export SLACK_USER = spam_bot
 export environment = Dev
@@ -19,7 +19,7 @@ build:
 # Define the test target
 test:
 	@echo "Running go tests with the following environment variables:"
-	@echo "SIP_DEST_IP=$(SIP_DEST_IP)"
+	@echo "SIP_DEST_HOST=$(SIP_DEST_HOST)"
 	@echo "SLACK_CHANNEL=$(SLACK_CHANNEL)"
 	@echo "SLACK_USER=$(SLACK_USER)"
 	@echo "environment=$(environment)"

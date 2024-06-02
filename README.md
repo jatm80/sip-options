@@ -1,5 +1,3 @@
-Put this code in src folder of your GOPATH
-
 Usage: 
 
 Set environment Var:  
