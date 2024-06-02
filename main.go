@@ -298,7 +298,7 @@ func getRand(n int) string {
 }
 
 func getCseq(n int) string {
-	mathrand.Seed(time.Now().UnixNano())
+	mathrand.NewSource(time.Now().UnixNano())
 	return strconv.Itoa(mathrand.Intn(n))
 }
 
