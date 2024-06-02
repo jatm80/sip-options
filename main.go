@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"encoding/json"
 	"fmt"
+	"io"
 	mathrand "math/rand"
 	"net"
 	"net/http"
@@ -348,4 +349,19 @@ func getMediaServers(rip, rhost []string) ([]string, []string) {
 		fmt.Println(env + ts() + " getMediaServers: " + fmt.Sprint(rip))
 	}
 	return rip, rhost
+}
+
+func testConn() bool {
+	resp, err := http.Get("http://myexternalip.com/raw")
+	if err != nil {
+		fmt.Print(err)
+		return false
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusOK {
+		bodyBytes, _ := io.ReadAll(resp.Body)
+		fmt.Println(string(bodyBytes))
+		return true
+	}
+	return true
 }
